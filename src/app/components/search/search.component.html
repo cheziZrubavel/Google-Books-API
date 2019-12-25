@@ -1,0 +1,50 @@
+<h1>
+  Welcome {{name}}!
+</h1>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="inputPassword2" class="sr-only"></label>
+      <input type="text" class="form-control" placeholder="Search Book" (keyup)="keyUpFunction($event.target.value)">
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/wishlist']">Wishlist</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-12 col-xl-12">
+      <div>
+        <ul *ngIf="booksObj" id="Ulist">
+          <li id="innerLi" *ngFor="let item of booksObj.items; index as i">
+            Book Name:{{item?.volumeInfo?.title | json}} <br>
+            Book Authors:{{item?.volumeInfo?.authors | json}} <br>
+            Book Image: <br>
+            <img class="image-holder" [src]=getSantizeUrl(item?.volumeInfo?.imageLinks?.smallThumbnail) /> <br>
+            <p>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                aria-controls="collapseExample" (click)="item.isCollapsed = !item.isCollapsed"
+                [attr.aria-expanded]="!item.isCollapsed">
+                More Info
+              </button>
+            </p>
+            <div class="collapse" id="collapseExample" [ngbCollapse]="item.isCollapsed">
+              <div class="card card-body">
+                More Details...
+                <label class="switch">
+                  <span>Add to Wishlist</span>
+                  <input type="checkbox" (change)="toggleEditable($event, i)">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>

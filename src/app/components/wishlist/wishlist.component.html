@@ -1,0 +1,15 @@
+<h1>Book Wishlist</h1>
+
+<ul *ngIf=" wishListArr" id="Ulist">
+  <li id="innerLi" *ngFor="let item of wishListArr; index as i">
+    Book Name:{{item?.volumeInfo?.title | json}} <br>
+    Book Authors:{{item?.volumeInfo?.authors | json}} <br>
+    Book Image: <br>
+    <img class="image-holder" [src]=getSantizeUrl(item?.volumeInfo?.imageLinks?.smallThumbnail) /> <br>
+    <label class="switch">
+      <span>Remove from Wishlist</span>
+      <input type="checkbox" (change)="removeFromWishList($event, i)">
+      <span class="slider round"></span>
+    </label>
+  </li>
+</ul>
